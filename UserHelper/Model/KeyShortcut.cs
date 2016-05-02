@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace UserHelper.Model
 {
@@ -7,6 +8,6 @@ namespace UserHelper.Model
     public class KeyShortcut
     {
         public string Action { get; set; }
-        public List<string> Keys { get; set; }
+        public HashSet<Keys> Keys { get; set; }
     }
 }

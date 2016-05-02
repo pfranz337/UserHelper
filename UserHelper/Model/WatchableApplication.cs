@@ -7,9 +7,10 @@ namespace UserHelper.Model
     [Serializable]
     public class WatchableApplication
     {
+        public bool Enabled { get; set; }
         public string Name { get; set; }
         public string ExeLocation { get; set; }
-        [XmlIgnoreAttribute]
+        [XmlIgnore]
         public List<Record> Records { get; set; }
     }
 }
