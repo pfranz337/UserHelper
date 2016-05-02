@@ -7,3 +7,12 @@
 \\server1\redirectedfolders\franz\my documents\visual studio 2015\Projects\UserHelper\UserHelper\obj\Debug\UserHelper.csproj.GenerateResource.Cache
 \\server1\redirectedfolders\franz\my documents\visual studio 2015\Projects\UserHelper\UserHelper\obj\Debug\UserHelper.exe
 \\server1\redirectedfolders\franz\my documents\visual studio 2015\Projects\UserHelper\UserHelper\obj\Debug\UserHelper.pdb
+C:\Users\Tom\Documents\Visual Studio 2015\Projects\UserHelper\UserHelper\UserHelper\bin\Debug\UserHelper.exe.config
+C:\Users\Tom\Documents\Visual Studio 2015\Projects\UserHelper\UserHelper\UserHelper\obj\Debug\UserHelper.exe
+C:\Users\Tom\Documents\Visual Studio 2015\Projects\UserHelper\UserHelper\UserHelper\obj\Debug\UserHelper.pdb
+C:\Users\Tom\Documents\Visual Studio 2015\Projects\UserHelper\UserHelper\UserHelper\bin\Debug\UserHelper.exe
+C:\Users\Tom\Documents\Visual Studio 2015\Projects\UserHelper\UserHelper\UserHelper\bin\Debug\UserHelper.pdb
+C:\Users\Tom\Documents\Visual Studio 2015\Projects\UserHelper\UserHelper\UserHelper\obj\Debug\UserHelper.csprojResolveAssemblyReference.cache
+C:\Users\Tom\Documents\Visual Studio 2015\Projects\UserHelper\UserHelper\UserHelper\obj\Debug\UserHelper.Form1.resources
+C:\Users\Tom\Documents\Visual Studio 2015\Projects\UserHelper\UserHelper\UserHelper\obj\Debug\UserHelper.Properties.Resources.resources
+C:\Users\Tom\Documents\Visual Studio 2015\Projects\UserHelper\UserHelper\UserHelper\obj\Debug\UserHelper.csproj.GenerateResource.Cache
