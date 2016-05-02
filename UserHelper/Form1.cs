@@ -10,16 +10,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ini;
+using UserHelper.Model;
 
 namespace UserHelper
 {
     public partial class Form1 : Form
     {
+        BindingSource source = new BindingSource();
+        List<string> seznamProgramu; //TODO: je potřeba získat i cesty k exe souborům, názvy nestačí vytvořená třída WatchableApplication
 
-        List<string> seznamProgramu;
         string helperFileName = Environment.CurrentDirectory + "\\helper.ini";
         IniFile fileIniHelper;
-        
+
 
         public Form1()
         {
@@ -27,6 +29,31 @@ namespace UserHelper
             InitializeComponent();
 
             comboBox1.SelectedIndex = 0;
+
+            source.DataSource = seznamProgramu;
+            programsListBox.DataSource = source;
+
+            var app1 = new WatchableApplication
+            {
+                Name = @"asdf\n|€&#&App1</větší než > menší!!::/\÷¤ß$Łł",
+                ExeLocation = @"c:\Uses\Tom\",
+                Records = new List<Record>{
+                    new Record() {
+                        Content = new RichContent{
+                            Language = "cs-CZ",
+                            Text = "Ahoj tohle je testovací text pro app1"
+                        },
+                        Shortcuts = new List<KeyShortcut>{
+                            new KeyShortcut {
+                                Action ="Kopírovat",
+                                Keys = new List<string>{"Ctrl", "c"}
+                            },
+                        }
+                    },
+                }
+            };
+
+            app1.Records.SaveToXmlFile("textfile.xml");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -40,25 +67,24 @@ namespace UserHelper
                     {
                         try
                         {
-                            var name = subkey.GetValue("DisplayName");
-                            programs.Items.Add(name);
-                            seznamProgramu.Add(name as string);
+                            var name = subkey.GetValue("DisplayName") as string;
+                            if (name != null)
+                            {
+                                seznamProgramu.Add(name);
+                            }
                         }
-                        catch (ArgumentNullException ee) { }
+                        catch (ArgumentNullException) { }
                     }
                 }
-            }            
+            }
+            source.ResetBindings(false);
+
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void SearchTextBox_TextChanged(object sender, EventArgs e)
         {
-            programs.Items.Clear();
-            if (searchingText.Text.Equals("")) { programs.Items.AddRange(seznamProgramu.ToArray()); }
-            else
-            {
-                var search = seznamProgramu.FindAll(X => X.ToUpper().Contains(searchingText.Text.ToUpper()));
-                programs.Items.AddRange(search.ToArray());
-            }
+            source.DataSource = seznamProgramu.FindAll(x => x.ToLower().Contains(searchingText.Text.ToLower()));
+            source.ResetBindings(false);
         }
 
         private void programs_SelectedIndexChanged(object sender, EventArgs e)
@@ -70,12 +96,14 @@ namespace UserHelper
         private void newHelper_Click(object sender, EventArgs e)
         {
             setHelper.Enabled = true;
-            fileIniHelper = new IniFile(helperFileName);             
+            fileIniHelper = new IniFile(helperFileName);
             var seznamProgramu = fileIniHelper.GetSectionNames();
-            if (seznamProgramu.ToList().Contains(programName.Text.ToUpper())) {
+            if (seznamProgramu.ToList().Contains(programName.Text.ToUpper()))
+            {
                 DialogResult = MessageBox.Show("Program již má uložené hodnoty. Přepsat???", "", MessageBoxButtons.YesNo);
                 if (DialogResult == DialogResult.No) setHelper.Enabled = false;
-                if (DialogResult == DialogResult.Yes) {
+                if (DialogResult == DialogResult.Yes)
+                {
                     textHelper.Text = "";
                     seznamZkratek.Rows.Clear();
                     fileIniHelper.deleteWholeSection(programName.Text.ToUpper());
@@ -84,7 +112,7 @@ namespace UserHelper
         }
 
         private void save_Click(object sender, EventArgs e)
-        {                                    
+        {
             string sekce = "[" + programName.Text.ToUpper() + "]";
 
             fileIniHelper = new IniFile(helperFileName);
@@ -92,14 +120,15 @@ namespace UserHelper
                 fileIniHelper.deleteWholeSection(programName.Text.ToUpper());
 
             string par_popis = "POPIS=";
-            string par_zkratky = "ZKRATKY=";                         
+            string par_zkratky = "ZKRATKY=";
 
             if (!textHelper.Text.Equals("")) par_popis += textHelper.Text;
             foreach (DataGridViewRow row in seznamZkratek.Rows)
             {
                 foreach (DataGridViewCell cell in row.Cells)
                 {
-                    if (cell.Value != null) {
+                    if (cell.Value != null)
+                    {
                         if (!cell.Value.ToString().Equals(""))
                         {
                             par_zkratky += row.Cells[0].Value.ToString() + "-" + row.Cells[1].Value.ToString() + @"\";
@@ -116,7 +145,8 @@ namespace UserHelper
             seznamZkratek.Rows.Clear();
         }
 
-        private void zapisIni(string sekce, string par_popis, string par_zkratky) {
+        private void zapisIni(string sekce, string par_popis, string par_zkratky)
+        {
             StreamWriter zapisDoIni = new StreamWriter(helperFileName, true);
             zapisDoIni.WriteLine(sekce);
             zapisDoIni.WriteLine(par_popis);
@@ -126,15 +156,16 @@ namespace UserHelper
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedIndex == 0) textBox1_TextChanged(sender, e);
+            if (comboBox1.SelectedIndex == 0) SearchTextBox_TextChanged(sender, e);
             if (comboBox1.SelectedIndex == 1) ulozeneProgramy();
         }
 
-        private void ulozeneProgramy() {
-            programs.Items.Clear();
+        private void ulozeneProgramy()
+        {
+            programsListBox.Items.Clear();
             fileIniHelper = new IniFile(helperFileName);
             var programy = fileIniHelper.GetSectionNames();
-            programs.Items.AddRange(programy);
+            programsListBox.Items.AddRange(programy);
         }
 
         private void changeHelper_Click(object sender, EventArgs e)
@@ -144,10 +175,11 @@ namespace UserHelper
             var seznamProgramu = fileIniHelper.GetSectionNames();
             if (seznamProgramu.ToList().Contains(programName.Text.ToUpper()))
             {
-                textHelper.Text = fileIniHelper.IniReadValue(programName.Text.ToUpper(),"POPIS");
+                textHelper.Text = fileIniHelper.IniReadValue(programName.Text.ToUpper(), "POPIS");
                 string zkratky = fileIniHelper.IniReadValue(programName.Text.ToUpper(), "ZKRATKY");
                 var arrayZkratky = zkratky.Split('\\');
-                for (int i = 0; i < arrayZkratky.Length-1; i++) {
+                for (int i = 0; i < arrayZkratky.Length - 1; i++)
+                {
                     var zkratka_popis = arrayZkratky[i].Split('-');
                     seznamZkratek.Rows.Add(zkratka_popis[0], zkratka_popis[1]);
                 }
