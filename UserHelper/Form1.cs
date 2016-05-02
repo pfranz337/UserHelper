@@ -31,6 +31,10 @@ namespace UserHelper
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            getListPrograms();
+        }
+
+        private void getListPrograms() {
             string registry_key = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey(registry_key))
             {
@@ -47,7 +51,7 @@ namespace UserHelper
                         catch (ArgumentNullException ee) { }
                     }
                 }
-            }            
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -139,6 +143,7 @@ namespace UserHelper
 
         private void changeHelper_Click(object sender, EventArgs e)
         {
+            seznamZkratek.Rows.Clear();
             setHelper.Enabled = true;
             fileIniHelper = new IniFile(helperFileName);
             var seznamProgramu = fileIniHelper.GetSectionNames();
