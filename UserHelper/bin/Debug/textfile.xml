@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Record>
+    <Shortcuts>
+      <KeyShortcut>
+        <Action>Kopírovat</Action>
+        <Keys>
+          <Keys>Control</Keys>
+          <Keys>C</Keys>
+        </Keys>
+      </KeyShortcut>
+    </Shortcuts>
+    <Content>
+      <Language>cs-CZ</Language>
+      <Text>Ahoj tohle je testovací text pro app1</Text>
+    </Content>
+  </Record>
+</ArrayOfRecord>

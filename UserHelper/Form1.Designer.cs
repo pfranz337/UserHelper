@@ -53,7 +53,7 @@
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // programListBox
+            // programsListBox
             // 
             this.programsListBox.AccessibleRole = System.Windows.Forms.AccessibleRole.ScrollBar;
             this.programsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -61,7 +61,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.programsListBox.FormattingEnabled = true;
             this.programsListBox.Location = new System.Drawing.Point(3, 56);
-            this.programsListBox.Name = "programListBox";
+            this.programsListBox.Name = "programsListBox";
             this.programsListBox.ScrollAlwaysVisible = true;
             this.programsListBox.Size = new System.Drawing.Size(270, 433);
             this.programsListBox.Sorted = true;
@@ -101,7 +101,7 @@
             // save
             // 
             this.save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.save.Location = new System.Drawing.Point(391, 470);
+            this.save.Location = new System.Drawing.Point(387, 466);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(158, 37);
             this.save.TabIndex = 2;
@@ -116,7 +116,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.setHelper.Controls.Add(this.popisProgramu);
             this.setHelper.Controls.Add(this.zkratkyKProgramu);
-            this.setHelper.Enabled = false;
             this.setHelper.Location = new System.Drawing.Point(3, 30);
             this.setHelper.Name = "setHelper";
             this.setHelper.SelectedIndex = 0;
@@ -140,6 +139,7 @@
             this.textHelper.Location = new System.Drawing.Point(3, 3);
             this.textHelper.Multiline = true;
             this.textHelper.Name = "textHelper";
+            this.textHelper.ReadOnly = true;
             this.textHelper.Size = new System.Drawing.Size(532, 402);
             this.textHelper.TabIndex = 0;
             // 
@@ -149,7 +149,7 @@
             this.zkratkyKProgramu.Location = new System.Drawing.Point(4, 22);
             this.zkratkyKProgramu.Name = "zkratkyKProgramu";
             this.zkratkyKProgramu.Padding = new System.Windows.Forms.Padding(3);
-            this.zkratkyKProgramu.Size = new System.Drawing.Size(552, 402);
+            this.zkratkyKProgramu.Size = new System.Drawing.Size(538, 408);
             this.zkratkyKProgramu.TabIndex = 1;
             this.zkratkyKProgramu.Text = "Klávesové zkratky";
             this.zkratkyKProgramu.UseVisualStyleBackColor = true;
@@ -162,7 +162,8 @@
             this.Popis});
             this.seznamZkratek.Location = new System.Drawing.Point(0, 0);
             this.seznamZkratek.Name = "seznamZkratek";
-            this.seznamZkratek.Size = new System.Drawing.Size(828, 382);
+            this.seznamZkratek.ReadOnly = true;
+            this.seznamZkratek.Size = new System.Drawing.Size(538, 408);
             this.seznamZkratek.TabIndex = 0;
             // 
             // Zkratka
@@ -181,6 +182,7 @@
             this.programName.Name = "programName";
             this.programName.Size = new System.Drawing.Size(287, 20);
             this.programName.TabIndex = 0;
+            this.programName.TextChanged += new System.EventHandler(this.programName_TextChanged);
             // 
             // comboBox1
             // 
