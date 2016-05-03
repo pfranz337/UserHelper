@@ -95,12 +95,14 @@ namespace UserHelper
         private void programs_SelectedIndexChanged(object sender, EventArgs e)
         {
             programName.Text = (sender as ListBox).SelectedItem.ToString();
-            setHelper.Enabled = false;
+            //setHelper.Enabled = false;
         }
 
         private void newHelper_Click(object sender, EventArgs e)
         {
-            setHelper.Enabled = true;
+            //setHelper.Enabled = true;
+            seznamZkratek.ReadOnly = false;
+            textHelper.ReadOnly = false;
             fileIniHelper = new IniFile(helperFileName);
             var seznamProgramu = fileIniHelper.GetSectionNames();
             if (seznamProgramu.ToList().Contains(programName.Text.ToUpper()))
@@ -118,6 +120,10 @@ namespace UserHelper
 
         private void save_Click(object sender, EventArgs e)
         {
+
+            seznamZkratek.ReadOnly = true;
+            textHelper.ReadOnly = true;
+
             string sekce = "[" + programName.Text.ToUpper() + "]";
 
             fileIniHelper = new IniFile(helperFileName);
@@ -177,24 +183,39 @@ namespace UserHelper
         private void changeHelper_Click(object sender, EventArgs e)
         {
             seznamZkratek.Rows.Clear();
-            setHelper.Enabled = true;
-            fileIniHelper = new IniFile(helperFileName);
-            var seznamProgramu = fileIniHelper.GetSectionNames();
+
+            seznamZkratek.ReadOnly = false;
+            textHelper.ReadOnly = false;
+
+            
             if (seznamProgramu.ToList().Contains(programName.Text.ToUpper()))
             {
-                textHelper.Text = fileIniHelper.IniReadValue(programName.Text.ToUpper(), "POPIS");
-                string zkratky = fileIniHelper.IniReadValue(programName.Text.ToUpper(), "ZKRATKY");
-                var arrayZkratky = zkratky.Split('\\');
-                for (int i = 0; i < arrayZkratky.Length - 1; i++)
-                {
-                    var zkratka_popis = arrayZkratky[i].Split('-');
-                    seznamZkratek.Rows.Add(zkratka_popis[0], zkratka_popis[1]);
-                }
-
+                getDataFromINI();
             }
             else {
                 MessageBox.Show("Program ještě není uložen.");
                 setHelper.Enabled = false;
+            }
+        }
+
+        private void getDataFromINI() {
+            fileIniHelper = new IniFile(helperFileName);
+            var seznamProgramu = fileIniHelper.GetSectionNames();
+            textHelper.Text = fileIniHelper.IniReadValue(programName.Text.ToUpper(), "POPIS");
+            string zkratky = fileIniHelper.IniReadValue(programName.Text.ToUpper(), "ZKRATKY");
+            var arrayZkratky = zkratky.Split('\\');
+            for (int i = 0; i < arrayZkratky.Length - 1; i++)
+            {
+                var zkratka_popis = arrayZkratky[i].Split('-');
+                seznamZkratek.Rows.Add(zkratka_popis[0], zkratka_popis[1]);
+            }
+        }
+
+        private void programName_TextChanged(object sender, EventArgs e)
+        {
+            seznamZkratek.Rows.Clear();
+            if (!programName.Text.Equals("")) {
+                getDataFromINI();
             }
         }
     }

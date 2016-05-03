@@ -139,6 +139,7 @@
             this.textHelper.Location = new System.Drawing.Point(3, 3);
             this.textHelper.Multiline = true;
             this.textHelper.Name = "textHelper";
+            this.textHelper.ReadOnly = true;
             this.textHelper.Size = new System.Drawing.Size(672, 473);
             this.textHelper.TabIndex = 0;
             // 
@@ -162,6 +163,7 @@
             this.seznamZkratek.Dock = System.Windows.Forms.DockStyle.Fill;
             this.seznamZkratek.Location = new System.Drawing.Point(3, 3);
             this.seznamZkratek.Name = "seznamZkratek";
+            this.seznamZkratek.ReadOnly = true;
             this.seznamZkratek.Size = new System.Drawing.Size(672, 473);
             this.seznamZkratek.TabIndex = 0;
             // 
@@ -169,11 +171,13 @@
             // 
             this.Zkratka.HeaderText = "Zkratka";
             this.Zkratka.Name = "Zkratka";
+            this.Zkratka.ReadOnly = true;
             // 
             // Popis
             // 
             this.Popis.HeaderText = "Popis";
             this.Popis.Name = "Popis";
+            this.Popis.ReadOnly = true;
             // 
             // programName
             // 
@@ -181,6 +185,7 @@
             this.programName.Name = "programName";
             this.programName.Size = new System.Drawing.Size(287, 20);
             this.programName.TabIndex = 0;
+            this.programName.TextChanged += new System.EventHandler(this.programName_TextChanged);
             // 
             // comboBox1
             // 
