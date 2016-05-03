@@ -11,6 +11,11 @@ namespace UserHelper.Model
         public string Name { get; set; }
         public string ExeLocation { get; set; }
         [XmlIgnore]
-        public List<Record> Records { get; set; }
+        public Record RecordContent { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

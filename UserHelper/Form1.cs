@@ -29,7 +29,7 @@ namespace UserHelper
             {
                 Name = @"asdf\n|€&#&App1</větší než > menší!!::/\÷¤ß$Łł",
                 ExeLocation = @"c:\Uses\Tom\",
-                Records = new List<Record>{
+                RecordContent =
                     new Record() {
                         Content = new RichContent{
                             Language = "cs-CZ",
@@ -41,11 +41,10 @@ namespace UserHelper
                                 Keys = new HashSet<Keys>{Keys.Control, Keys.C}
                             },
                         }
-                    },
                 }
             };
 
-            app1.Records.SaveToXmlFile("textfile.xml");
+            app1.SaveToXmlFile("textfile.xml");
         }
 
 
