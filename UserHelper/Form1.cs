@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ini;
 using UserHelper.Model;
+using System.Threading;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace UserHelper
 {
@@ -64,6 +67,11 @@ namespace UserHelper
         private void Form1_Load(object sender, EventArgs e)
         {
             getListPrograms();
+
+            //pro focus
+            t = new Thread(focus);
+            t.IsBackground = true;
+            t.Start();
         }
 
         private void getListPrograms()
@@ -218,5 +226,55 @@ namespace UserHelper
                 getDataFromINI();
             }
         }
+
+
+
+        //------------------FOCUS ON WINDOW---------------------------------------------------
+        [DllImport("user32.dll")]
+        static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
+        static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        private uint GetActiveWindowTitle()
+        {
+            const int nChars = 256;
+            uint id;
+            StringBuilder Buff = new StringBuilder(nChars);
+            IntPtr handle = GetForegroundWindow();
+
+            if (GetWindowThreadProcessId(handle, out id) > 0)
+            {
+                return id;
+            }
+            return 0;
+        }
+
+        Thread t;
+
+        private void focus()
+        {
+            while (true)
+            {
+                uint id_proc = GetActiveWindowTitle();
+
+                try
+                {
+                    Invoke((MethodInvoker)delegate { label1.Text = findProc(id_proc); });
+                }
+                catch (Exception e) { }
+            }
+        }
+
+        private string findProc(uint id)
+        {
+            Process p = Process.GetProcessById((int)id);
+            return p.ProcessName ;
+        }
+
+
     }
 }

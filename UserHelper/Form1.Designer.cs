@@ -43,6 +43,7 @@
             this.programName = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label1 = new System.Windows.Forms.Label();
             this.setHelper.SuspendLayout();
             this.popisProgramu.SuspendLayout();
             this.zkratkyKProgramu.SuspendLayout();
@@ -216,6 +217,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.save);
             this.splitContainer1.Panel2.Controls.Add(this.changeHelper);
             this.splitContainer1.Panel2.Controls.Add(this.setHelper);
@@ -224,6 +226,15 @@
             this.splitContainer1.Size = new System.Drawing.Size(1041, 581);
             this.splitContainer1.SplitterDistance = 345;
             this.splitContainer1.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(54, 475);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "label1";
             // 
             // Form1
             // 
@@ -266,6 +277,7 @@
         private System.Windows.Forms.Button newHelper;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Label label1;
     }
 }
 
