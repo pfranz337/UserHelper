@@ -277,8 +277,14 @@ namespace UserHelper
 
         private string findProc(uint id)
         {
+            try { 
             Process p = Process.GetProcessById((int)id);
             return p.MainModule.FileName;
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
 
