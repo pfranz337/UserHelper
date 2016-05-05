@@ -33,8 +33,10 @@ namespace UserHelper
                 Name = @"asdf\n|€&#&App1</větší než > menší!!::/\÷¤ß$Łł",
                 ExeLocation = @"c:\Uses\Tom\",
                 RecordContent =
-                    new Record() {
-                        Content = new RichContent{
+                    new Record()
+                    {
+                        Content = new RichContent
+                        {
                             Language = "cs-CZ",
                             Text = "Ahoj tohle je testovací text pro app1"
                         },
@@ -44,7 +46,7 @@ namespace UserHelper
                                 Keys = new HashSet<Keys>{Keys.Control, Keys.C}
                             },
                         }
-                }
+                    }
             };
 
             app1.SaveToXmlFile("textfile.xml");
@@ -195,7 +197,7 @@ namespace UserHelper
             seznamZkratek.ReadOnly = false;
             textHelper.ReadOnly = false;
 
-            
+
             if (seznamProgramu.ToList().Contains(programName.Text.ToUpper()))
             {
                 getDataFromINI();
@@ -206,7 +208,8 @@ namespace UserHelper
             }
         }
 
-        private void getDataFromINI() {
+        private void getDataFromINI()
+        {
             fileIniHelper = new IniFile(helperFileName);
             var seznamProgramu = fileIniHelper.GetSectionNames();
             textHelper.Text = fileIniHelper.IniReadValue(programName.Text.ToUpper(), "POPIS");
@@ -222,7 +225,8 @@ namespace UserHelper
         private void programName_TextChanged(object sender, EventArgs e)
         {
             seznamZkratek.Rows.Clear();
-            if (!programName.Text.Equals("")) {
+            if (!programName.Text.Equals(""))
+            {
                 getDataFromINI();
             }
         }
@@ -265,14 +269,16 @@ namespace UserHelper
                 {
                     Invoke((MethodInvoker)delegate { label1.Text = findProc(id_proc); });
                 }
-                catch (Exception e) { }
+                catch (Exception) { }
+
+                Thread.Sleep(200);
             }
         }
 
         private string findProc(uint id)
         {
             Process p = Process.GetProcessById((int)id);
-            return p.ProcessName ;
+            return p.MainModule.FileName;
         }
 
 
