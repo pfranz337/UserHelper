@@ -68,12 +68,10 @@ namespace UserHelper
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            getListPrograms();
+            //getListPrograms();
+            comboBox1_SelectedIndexChanged(sender, e);
 
-            //pro focus
-            t = new Thread(focus);
-            t.IsBackground = true;
-            t.Start();
+            vyberProg.FormClosing += setChooseProgramm;
         }
 
         private void getListPrograms()
@@ -231,62 +229,29 @@ namespace UserHelper
             }
         }
 
+        ChooseProg vyberProg = new ChooseProg();
+        Cesta_Kontejner kontejner = new Cesta_Kontejner();
 
-
-        //------------------FOCUS ON WINDOW---------------------------------------------------
-        [DllImport("user32.dll")]
-        static extern IntPtr GetForegroundWindow();
-
-        [DllImport("user32.dll")]
-        static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
-
-        private uint GetActiveWindowTitle()
+        private void but_chooseProgramm_Click(object sender, EventArgs e)
         {
-            const int nChars = 256;
-            uint id;
-            StringBuilder Buff = new StringBuilder(nChars);
-            IntPtr handle = GetForegroundWindow();
 
-            if (GetWindowThreadProcessId(handle, out id) > 0)
-            {
-                return id;
+            vyberProg.Kontejner = kontejner;
+            //programName.Text = vyberProg.getChooseProgramm();
+            this.Visible = false;
+            if (vyberProg.ShowDialog() == DialogResult.OK) { 
+
+                programName.Text = kontejner.cesta; ;
+
             }
-            return 0;
+
         }
 
-        Thread t;
-
-        private void focus()
+        private void setChooseProgramm(object sender, FormClosingEventArgs e)
         {
-            while (true)
-            {
-                uint id_proc = GetActiveWindowTitle();
-
-                try
-                {
-                    Invoke((MethodInvoker)delegate { label1.Text = findProc(id_proc); });
-                }
-                catch (Exception) { }
-
-                Thread.Sleep(200);
-            }
+            this.Visible = true;
+            //if (!string.IsNullOrEmpty(vyberProg.getChooseProgramm())) {
+            //    programName.Text = vyberProg.getChooseProgramm();
+            //}
         }
-
-        private string findProc(uint id)
-        {
-            try { 
-            Process p = Process.GetProcessById((int)id);
-            return p.MainModule.FileName;
-            }
-            catch (Exception e)
-            {
-                return e.Message;
-            }
-        }
-
-
     }
 }
