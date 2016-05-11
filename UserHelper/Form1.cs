@@ -238,9 +238,9 @@ namespace UserHelper
             vyberProg.Kontejner = kontejner;
             //programName.Text = vyberProg.getChooseProgramm();
             this.Visible = false;
-            if (vyberProg.ShowDialog() == DialogResult.OK) { 
-
-                programName.Text = kontejner.cesta; ;
+            if (vyberProg.ShowDialog() == DialogResult.OK) {
+                if (!System.Reflection.Assembly.GetEntryAssembly().Location.Equals(kontejner.cesta)) 
+                    programName.Text = kontejner.cesta; ;
 
             }
 
