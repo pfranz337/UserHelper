@@ -240,7 +240,7 @@ namespace UserHelper
             this.Visible = false;
             if (vyberProg.ShowDialog() == DialogResult.OK) {
                 if (!System.Reflection.Assembly.GetEntryAssembly().Location.Equals(kontejner.cesta)) 
-                    programName.Text = kontejner.cesta; ;
+                    programName.Text = kontejner.cesta;
 
             }
 
